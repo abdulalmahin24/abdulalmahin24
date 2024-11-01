@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+departments = ['Engineering', 'Marketing', 'Sales', 'HR', 'Finance']
+num_employees = 50
+data = {
+    'Employee_ID': [f"E{i+1:03}" for i in range(num_employees)],
+    'Department': np.random.choice(departments, num_employees),
+    'Salary': np.random.randint(40000, 120000, num_employees),
+    'Years_of_Experience': np.random.randint(1, 20, num_employees),
+    'Performance_Score': np.random.randint(1, 10, num_employees),
+        }
+df = pd.DataFrame(data)
+avg_salary_per_department = df.groupby('Department')['Salary'].mean()
+avg_experience_per_department = df.groupby('Department')['Years_of_Experience'].mean()
+
+highest_paid_employee = df.loc[df['Salary'].idxmax()]
+lowest_paid_employee = df.loc[df['Salary'].idxmin()]
+
+top_performers = df[df['Performance_Score'] >= 8]
+
+print("Average Salary per Department:")
+print(avg_salary_per_department)
+print("\nAverage Years of Experience per Department:")
+print(avg_experience_per_department)
+print("\nHighest Paid Employee:")
+print(highest_paid_employee[['Employee_ID', 'Department', 'Salary']])
+print("\nLowest Paid Employee:")
+print(lowest_paid_employee[['Employee_ID', 'Department', 'Salary']])
+print("\nTop Performers:")
+print(top_performers[['Employee_ID', 'Department', 'Performance_Score']])
