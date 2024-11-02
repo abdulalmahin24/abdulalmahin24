@@ -1,0 +1,20 @@
+import pandas as pd
+
+df = pd.read_csv('students_scores.csv')
+
+print("First 5 rows of the dataset:")
+print(df.head())  
+print("\nSummary statistics:")
+print(df.describe()) 
+
+df['Average_Score'] = df[['Math_Score', 'English_Score', 'Science_Score']].mean(axis=1)
+print("\nData with the new Average_Score column:")
+print(df.head())
+
+high_achievers = df[df['Average_Score'] > 75]
+print("\nStudents with an average score above 75:")
+print(high_achievers)
+
+avg_math_by_age = df.groupby('Age')['Math_Score'].mean()
+print("\nAverage Math score by age:")
+print(avg_math_by_age)
